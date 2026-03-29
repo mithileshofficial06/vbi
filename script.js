@@ -321,10 +321,12 @@ function formatCurrency(amount) {
 
 // Screen Transition
 function loadScreen(screenName, data = {}) {
+  screenContent.classList.remove('slide-in');
   screenContent.style.opacity = '0';
   setTimeout(() => {
     renderScreen(screenName, data);
     screenContent.style.opacity = '1';
+    screenContent.classList.add('slide-in');
   }, 150);
 }
 
@@ -389,11 +391,19 @@ function renderCardInsert() {
   screenContent.innerHTML = `
     <h2 class="screen-title">${t('cardInsert.title')}</h2>
     <p class="screen-subtitle">${t('cardInsert.subtitle')}</p>
-    <div class="card-slot">
+    <div class="card-slot" id="card-slot">
       <div class="card-slot-arrow">→</div>
     </div>
-    <button class="btn-primary" onclick="loadScreen('language')">${t('cardInsert.button')}</button>
+    <button class="btn-primary" onclick="animateCardInsert()">${t('cardInsert.button')}</button>
   `;
+}
+
+function animateCardInsert() {
+  const cardSlot = document.getElementById('card-slot');
+  cardSlot.classList.add('animate');
+  setTimeout(() => {
+    loadScreen('language');
+  }, 1500);
 }
 
 // Screen: Language Selection
@@ -802,6 +812,10 @@ function renderSuccess(data) {
   if (flow === 'withdraw') {
     const amount = parseInt(state.amount);
     screenContent.innerHTML = `
+      <svg class="success-checkmark" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40"/>
+        <path d="M30 50 L45 65 L70 35" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
       <h2 class="screen-title">${t('success.title')}</h2>
       <p class="screen-subtitle">${t('success.withdrawSubtitle')}</p>
       <div class="balance-amount">${formatCurrency(amount)}</div>
@@ -813,6 +827,10 @@ function renderSuccess(data) {
     `;
   } else if (flow === 'deposit') {
     screenContent.innerHTML = `
+      <svg class="success-checkmark" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40"/>
+        <path d="M30 50 L45 65 L70 35" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
       <h2 class="screen-title">${t('success.title')}</h2>
       <p class="screen-subtitle">${t('success.depositSubtitle')}</p>
       <div style="margin: 20px 0;">
