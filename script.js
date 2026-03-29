@@ -151,7 +151,7 @@ const translations = {
       secretTitle: 'உங்கள் ரகசிய பின் எண்ணை உள்ளிடவும்',
       subtitle: 'தட்டச்சு செய்யும் போது உங்கள் கையால் திரையை பாதுகாக்கவும்',
       back: 'பின்',
-      confirm: 'உறுதிப்படுத்து',
+      confirm: 'சரி',
       error: '4 இலக்க பின் எண்ணை உள்ளிடவும்'
     },
     accountType: {
@@ -166,7 +166,7 @@ const translations = {
       title: 'தொகையை உள்ளிடவும்',
       subtitle: 'நீங்கள் எடுக்க விரும்பும் தொகையை உள்ளிடவும்',
       clear: 'அழி',
-      confirm: 'உறுதிப்படுத்து',
+      confirm: 'சரி',
       error: 'சரியான தொகையை உள்ளிடவும்'
     },
     balance: {
@@ -190,8 +190,8 @@ const translations = {
     depositConfirm: {
       title: 'தொகை சரியானதா?',
       total: 'மொத்தம்',
-      addMore: 'மேலும் பணம் சேர்க்க',
-      confirm: 'உறுதிப்படுத்து & வைப்பு'
+      addMore: 'மேலும் சேர்க்க',
+      confirm: 'சரி & வைப்பு'
     },
     processing: {
       withdrawal: 'உங்கள் பணம் எடுப்பு செயலாக்கப்படுகிறது...',
@@ -433,18 +433,22 @@ function renderMainMenu() {
     <p class="screen-subtitle">${t('mainMenu.subtitle')}</p>
     <div class="btn-grid">
       <div class="btn-grid-item" onclick="startFlow('withdraw')">
+        <div class="service-icon">💵</div>
         <div class="btn-grid-item-title">${t('mainMenu.withdraw')}</div>
         <div class="btn-grid-item-subtitle">${t('mainMenu.withdrawSub')}</div>
       </div>
       <div class="btn-grid-item" onclick="startFlow('balance')">
+        <div class="service-icon">💰</div>
         <div class="btn-grid-item-title">${t('mainMenu.balance')}</div>
         <div class="btn-grid-item-subtitle">${t('mainMenu.balanceSub')}</div>
       </div>
       <div class="btn-grid-item" onclick="startFlow('statement')">
+        <div class="service-icon">📄</div>
         <div class="btn-grid-item-title">${t('mainMenu.statement')}</div>
         <div class="btn-grid-item-subtitle">${t('mainMenu.statementSub')}</div>
       </div>
       <div class="btn-grid-item" onclick="startFlow('deposit')">
+        <div class="service-icon">💳</div>
         <div class="btn-grid-item-title">${t('mainMenu.deposit')}</div>
         <div class="btn-grid-item-subtitle">${t('mainMenu.depositSub')}</div>
       </div>
@@ -472,6 +476,7 @@ function renderPinEntry(data) {
   const { title = t('pinEntry.title'), subtitle = t('pinEntry.subtitle'), nextScreen } = data;
   
   screenContent.innerHTML = `
+    <div class="pin-lock-icon">🔒</div>
     <h2 class="screen-title">${title}</h2>
     <p class="screen-subtitle">${subtitle}</p>
     <div class="pin-display">
@@ -543,10 +548,12 @@ function renderAccountType() {
     <p class="screen-subtitle">${t('accountType.subtitle')}</p>
     <div class="btn-grid">
       <div class="btn-grid-item" onclick="selectAccountType('Savings')">
+        <div class="account-icon">🐷</div>
         <div class="btn-grid-item-title">${t('accountType.savings')}</div>
         <div class="btn-grid-item-subtitle">${t('accountType.savingsSub')}</div>
       </div>
       <div class="btn-grid-item" onclick="selectAccountType('Current')">
+        <div class="account-icon">💼</div>
         <div class="btn-grid-item-title">${t('accountType.current')}</div>
         <div class="btn-grid-item-subtitle">${t('accountType.currentSub')}</div>
       </div>
@@ -643,12 +650,13 @@ function confirmAmount() {
 // Screen: Balance
 function renderBalance() {
   screenContent.innerHTML = `
+    <div class="balance-icon">💰</div>
     <h2 class="screen-title">${t('balance.title')}</h2>
     <div class="balance-amount">${formatCurrency(state.balance)}</div>
     <p class="screen-subtitle">${state.selectedAccountType} ${t('balance.account')}</p>
     <div class="button-group">
-      <button class="btn-secondary" onclick="loadScreen('printing')">${t('balance.print')}</button>
-      <button class="btn-primary" onclick="loadScreen('thank-you')">${t('balance.done')}</button>
+      <button class="btn-secondary" onclick="loadScreen('printing')">🖨️ ${t('balance.print')}</button>
+      <button class="btn-primary" onclick="loadScreen('thank-you')">✓ ${t('balance.done')}</button>
     </div>
   `;
 }
@@ -734,9 +742,19 @@ function renderDepositConfirm() {
     </div>
     <div class="button-group">
       <button class="btn-secondary" onclick="loadScreen('cash-insert')">${t('depositConfirm.addMore')}</button>
-      <button class="btn-primary" onclick="loadScreen('processing', { message: '${t('processing.deposit')}', subtitle: '${t('processing.subtitle')}', nextScreen: 'success', flow: 'deposit' })">${t('depositConfirm.confirm')}</button>
+      <button class="btn-primary" id="confirm-deposit-btn">${t('depositConfirm.confirm')}</button>
     </div>
   `;
+  
+  // Add event listener for confirm button
+  document.getElementById('confirm-deposit-btn').onclick = () => {
+    loadScreen('processing', { 
+      message: t('processing.deposit'), 
+      subtitle: t('processing.subtitle'), 
+      nextScreen: 'success', 
+      flow: 'deposit' 
+    });
+  };
 }
 
 // Screen: Processing
@@ -761,6 +779,7 @@ function renderProcessing(data) {
 // Screen: Statement
 function renderStatement() {
   screenContent.innerHTML = `
+    <div class="statement-icon">📊</div>
     <h2 class="screen-title">${t('statement.title')}</h2>
     <p class="screen-subtitle">${state.selectedAccountType} ${t('statement.account')}</p>
     <div class="transaction-details">
@@ -778,8 +797,8 @@ function renderStatement() {
       </div>
     </div>
     <div class="button-group">
-      <button class="btn-secondary" onclick="loadScreen('printing')">${t('statement.print')}</button>
-      <button class="btn-primary" onclick="loadScreen('thank-you')">${t('statement.done')}</button>
+      <button class="btn-secondary" onclick="loadScreen('printing')">🖨️ ${t('statement.print')}</button>
+      <button class="btn-primary" onclick="loadScreen('thank-you')">✓ ${t('statement.done')}</button>
     </div>
   `;
 }
