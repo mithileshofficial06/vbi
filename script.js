@@ -431,26 +431,53 @@ function renderMainMenu() {
   screenContent.innerHTML = `
     <h2 class="screen-title">${t('mainMenu.title')}</h2>
     <p class="screen-subtitle">${t('mainMenu.subtitle')}</p>
-    <div class="btn-grid">
-      <div class="btn-grid-item" onclick="startFlow('withdraw')">
-        <div class="service-icon">💵</div>
-        <div class="btn-grid-item-title">${t('mainMenu.withdraw')}</div>
-        <div class="btn-grid-item-subtitle">${t('mainMenu.withdrawSub')}</div>
+    <div class="service-grid">
+      <div class="service-card" onclick="startFlow('withdraw')">
+        <div class="service-card-left">
+          <div class="service-icon-box" style="background: #1a2744;">
+            <span class="service-icon-emoji">💵</span>
+          </div>
+          <div class="service-card-title">${t('mainMenu.withdraw')}</div>
+        </div>
+        <div class="service-card-right" style="background: #1a2744;">
+          <div class="service-illustration">💸</div>
+        </div>
       </div>
-      <div class="btn-grid-item" onclick="startFlow('balance')">
-        <div class="service-icon">💰</div>
-        <div class="btn-grid-item-title">${t('mainMenu.balance')}</div>
-        <div class="btn-grid-item-subtitle">${t('mainMenu.balanceSub')}</div>
+      
+      <div class="service-card" onclick="startFlow('balance')">
+        <div class="service-card-left">
+          <div class="service-icon-box" style="background: #3b82f6;">
+            <span class="service-icon-emoji">💰</span>
+          </div>
+          <div class="service-card-title">${t('mainMenu.balance')}</div>
+        </div>
+        <div class="service-card-right" style="background: #1a2744;">
+          <div class="service-illustration">📄</div>
+        </div>
       </div>
-      <div class="btn-grid-item" onclick="startFlow('statement')">
-        <div class="service-icon">📄</div>
-        <div class="btn-grid-item-title">${t('mainMenu.statement')}</div>
-        <div class="btn-grid-item-subtitle">${t('mainMenu.statementSub')}</div>
+      
+      <div class="service-card" onclick="startFlow('statement')">
+        <div class="service-card-left">
+          <div class="service-icon-box" style="background: #3b82f6;">
+            <span class="service-icon-emoji">📊</span>
+          </div>
+          <div class="service-card-title">${t('mainMenu.statement')}</div>
+        </div>
+        <div class="service-card-right" style="background: #f97316;">
+          <div class="service-illustration">📋</div>
+        </div>
       </div>
-      <div class="btn-grid-item" onclick="startFlow('deposit')">
-        <div class="service-icon">💳</div>
-        <div class="btn-grid-item-title">${t('mainMenu.deposit')}</div>
-        <div class="btn-grid-item-subtitle">${t('mainMenu.depositSub')}</div>
+      
+      <div class="service-card" onclick="startFlow('deposit')">
+        <div class="service-card-left">
+          <div class="service-icon-box" style="background: #3b82f6;">
+            <span class="service-icon-emoji">💳</span>
+          </div>
+          <div class="service-card-title">${t('mainMenu.deposit')}</div>
+        </div>
+        <div class="service-card-right" style="background: #3b82f6;">
+          <div class="service-illustration">💵</div>
+        </div>
       </div>
     </div>
   `;
@@ -546,16 +573,20 @@ function renderAccountType() {
   screenContent.innerHTML = `
     <h2 class="screen-title">${t('accountType.title')}</h2>
     <p class="screen-subtitle">${t('accountType.subtitle')}</p>
-    <div class="btn-grid">
-      <div class="btn-grid-item" onclick="selectAccountType('Savings')">
-        <div class="account-icon">🐷</div>
-        <div class="btn-grid-item-title">${t('accountType.savings')}</div>
-        <div class="btn-grid-item-subtitle">${t('accountType.savingsSub')}</div>
+    <div class="account-grid">
+      <div class="account-card" onclick="selectAccountType('Savings')">
+        <div class="account-icon-circle" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+          <span class="account-icon-emoji">🐷</span>
+        </div>
+        <div class="account-card-title">${t('accountType.savings')}</div>
+        <div class="account-card-subtitle">${t('accountType.savingsSub')}</div>
       </div>
-      <div class="btn-grid-item" onclick="selectAccountType('Current')">
-        <div class="account-icon">💼</div>
-        <div class="btn-grid-item-title">${t('accountType.current')}</div>
-        <div class="btn-grid-item-subtitle">${t('accountType.currentSub')}</div>
+      <div class="account-card" onclick="selectAccountType('Current')">
+        <div class="account-icon-circle" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+          <span class="account-icon-emoji">💼</span>
+        </div>
+        <div class="account-card-title">${t('accountType.current')}</div>
+        <div class="account-card-subtitle">${t('accountType.currentSub')}</div>
       </div>
     </div>
   `;
